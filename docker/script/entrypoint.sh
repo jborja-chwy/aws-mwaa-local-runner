@@ -18,6 +18,8 @@ export \
   AIRFLOW__CORE__FERNET_KEY \
   AIRFLOW__CORE__LOAD_EXAMPLES \
 
+export AIRFLOW_CONN_AWS_DEFAULT=aws://
+
 # Install custom python package if requirements.txt is present
 install_requirements() {
     # Install custom python package if requirements.txt is present

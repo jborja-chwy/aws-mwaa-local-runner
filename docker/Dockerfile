@@ -14,6 +14,10 @@ ARG PYTHON_DEPS=""
 ARG SYSTEM_DEPS=""
 ARG INDEX_URL=""
 ENV AIRFLOW_HOME=${AIRFLOW_USER_HOME}
+ENV AWS_PROFILE=sandbox-nebula
+ENV AWS_DEFAULT_REGION=us-east-1
+ENV PYTHONPATH=${PYTHONPATH}:${AIRFLOW_USER_HOME}/dags/Development_Tools_Repository/python/common
+ENV PATH=${PATH}:/home/airflow/.local/bin:${AIRFLOW_USER_HOME}/dags/Development_Tools_Repository/python/common
 
 COPY script/bootstrap.sh /bootstrap.sh
 COPY script/systemlibs.sh /systemlibs.sh
@@ -37,3 +41,4 @@ USER airflow
 WORKDIR ${AIRFLOW_USER_HOME}
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["local-runner"]
+

@@ -1,4 +1,6 @@
 version: '3.7'
+
+
 services:
     postgres:
         image: postgres:10-alpine
@@ -21,6 +23,7 @@ services:
         environment:
             - LOAD_EX=n
             - EXECUTOR=Local
+            - HOME=/home/airflow
         logging:
             options:
                 max-size: 10m
@@ -28,6 +31,8 @@ services:
         volumes:
             - ${PWD}/dags:/usr/local/airflow/dags
             - ${PWD}/plugins:/usr/local/airflow/plugins
+            - ~:/home/airflow
+            - ~/.aws:/users/airflow/.aws:ro
         ports:
             - "8080:8080"
         command: local-runner
@@ -36,3 +41,18 @@ services:
             interval: 30s
             timeout: 30s
             retries: 3
+
+ #   aws-cli:
+  #      image: amazon/aws-cli
+  #      restart: always
+  #      environment:
+  #          - AWS_PROFILE=sandbox-nebula
+  #      logging:
+  #          options:
+  #              max-size: 10m
+  #              max-file: "3"
+  #      volumes:
+  #          - ~/.aws:/root/.aws
+  #          - ~/.nebula_utils:/root/.nebula_utils/
+        #command: nebula-utils configure
+
